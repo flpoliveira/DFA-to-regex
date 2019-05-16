@@ -1,0 +1,47 @@
+{
+    "states": [
+        "s0",
+        "s1",
+        "s2"
+    ],
+    "initial": "S0",
+    "accepting": [
+        "s1"
+    ],
+    "alphabet": [
+        "a",
+        "b"
+    ],
+    "transictions": [
+        {
+            "from": "s0",
+            "letter": "a",
+            "to": "s1"
+        },
+        {
+            "from": "s0",
+            "letter": "b",
+            "to": "s2"
+        },
+        {
+            "from": "s1",
+            "letter": "a",
+            "to": "s1"
+        },
+        {
+            "from": "s1",
+            "letter": "b",
+            "to": "s0"
+        },
+        {
+            "from": "s2",
+            "letter": "a",
+            "to": "s2"
+        },
+        {
+            "from": "s2",
+            "letter": "b",
+            "to": "s1"
+        }
+    ]
+}
