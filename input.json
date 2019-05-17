@@ -12,7 +12,7 @@
         "a",
         "b"
     ],
-    "transictions": [
+    "transitions": [
         {
             "from": "s0",
             "letter": "a",
