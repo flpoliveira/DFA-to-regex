@@ -4,7 +4,7 @@
         "s1",
         "s2"
     ],
-    "initial": "S0",
+    "initial": "s0",
     "accepting": [
         "s1"
     ],
