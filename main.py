@@ -5,7 +5,7 @@ regexOutput = ""
 
 
 def main():
-    inputData = readInput('input_2.json')
+    inputData = readInput('input_1.json')
     # print(getAllTransitionsWithAListOfResults(
     # inputData['accepting'], inputData))
     recursiveNewStateChecker(inputData, inputData['accepting'])
@@ -13,7 +13,8 @@ def main():
     for i in reversed(states):
         for j in formatedStates:
             if(i == j[0] and len(j[2]) != 0):
-                print("<<", j, ">>")
+                print("<<", "(", "|".join(j[0]), ") =",
+                      "(", "|".join(j[2]), ")", j[1], ">>")
     algebraicRemovalMethod(inputData)
     print(regexOutput)
 
@@ -23,14 +24,14 @@ def algebraicRemovalMethod(inputData):
     for i in reversed(states):
         for j in formatedStates:
             if(i == j[0] and len(j[2]) != 0):
-                print(j[0], " = ", j[2], j[1])
+                # print(j[0], " = ", j[2], j[1])
                 if(len(regexOutput) != 0 and regexOutput[-1] in inputData['alphabet']):
                     regexOutput += "+"
                 regexOutput += j[1]
-        print(">>>>", inputData['initial'] in i, inputData['initial'], i)
+        # print(">>>>", inputData['initial'] in i, inputData['initial'], i)
         if(inputData['initial'] in i):
             regexOutput = "("+regexOutput+")*"
-        print(">>>", regexOutput)
+        # print(">>>", regexOutput)
     return
 
 
