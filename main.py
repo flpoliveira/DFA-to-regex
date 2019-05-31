@@ -7,18 +7,17 @@ regexOutput = ""
 
 def main():
     inputData = getFileName()
-    # print(getAllTransitionsWithAListOfResults(
-    # inputData['accepting'], inputData))
-    # recursiveNewStateChecker(inputData, inputData['accepting'])
-    # print("<<", states, ">>")
-    # for i in reversed(states):
-    #    for j in formatedStates:
-    #         if(i == j[0] and len(j[2]) != 0):
-    #             print("<<", "(", "|".join(j[0]), ") =",
-    #                   "(", "|".join(j[2]), ")", j[1], ">>")
-    # algebraicRemovalMethod(inputData)
+    print(getAllTransitionsWithAListOfResults(
+        inputData['accepting'], inputData))
+    recursiveNewStateChecker(inputData, inputData['accepting'])
+    print("<<", states, ">>")
+    for i in reversed(states):
+        for j in formatedStates:
+            if(i == j[0] and len(j[2]) != 0):
+                print("<<", "(", "|".join(j[0]), ") =",
+                      "(", "|".join(j[2]), ")", j[1], ">>")
+    algebraicRemovalMethod(inputData)
     # print(regexOutput)
-    print(inputData)
 
 
 def algebraicRemovalMethod(inputData):
