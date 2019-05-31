@@ -1,22 +1,24 @@
 import json
+import sys
 states = []
 formatedStates = []
 regexOutput = ""
 
 
 def main():
-    inputData = readInput('input_1.json')
+    inputData = getFileName()
     # print(getAllTransitionsWithAListOfResults(
     # inputData['accepting'], inputData))
-    recursiveNewStateChecker(inputData, inputData['accepting'])
-    print("<<", states, ">>")
-    for i in reversed(states):
-        for j in formatedStates:
-            if(i == j[0] and len(j[2]) != 0):
-                print("<<", "(", "|".join(j[0]), ") =",
-                      "(", "|".join(j[2]), ")", j[1], ">>")
-    algebraicRemovalMethod(inputData)
-    print(regexOutput)
+    # recursiveNewStateChecker(inputData, inputData['accepting'])
+    # print("<<", states, ">>")
+    # for i in reversed(states):
+    #    for j in formatedStates:
+    #         if(i == j[0] and len(j[2]) != 0):
+    #             print("<<", "(", "|".join(j[0]), ") =",
+    #                   "(", "|".join(j[2]), ")", j[1], ">>")
+    # algebraicRemovalMethod(inputData)
+    # print(regexOutput)
+    print(inputData)
 
 
 def algebraicRemovalMethod(inputData):
@@ -64,6 +66,19 @@ def getAllTransitionsWithAListOfResults(listOfResults, inputData):
         formatedStates.append([listOfResults, y, aux])
 
     return response
+
+
+def getFileName():
+    try:
+        filePath = sys.argv[1]
+        if(filePath[-5:] != ".json"):
+            raise ValueError("Formato de arquivo incorreto !!!")
+        inputData = readInput(filePath)
+        return inputData
+    except IndexError:
+        raise ValueError("Nome de arquivo não informado !!!")
+    except FileNotFoundError:
+        raise FileNotFoundError("Arquivo não encontrado !!!")
 
 
 if __name__ == "__main__":
