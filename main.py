@@ -10,14 +10,44 @@ def main():
     print(getAllTransitionsWithAListOfResults(
         inputData['accepting'], inputData))
     recursiveNewStateChecker(inputData, inputData['accepting'])
-    print("<<", states, ">>")
+#    print("<<", states, ">>")
+    #for i in reversed(states):
+    #    for j in formatedStates:
+            #if(i == j[0] and len(j[2]) != 0):
+                #print("<<", "(", "|".join(j[0]), ") =",
+                #     "(", "|".join(j[2]), ")", j[1], ">>")
+    #simplificar(inputData)
     for i in reversed(states):
         for j in formatedStates:
             if(i == j[0] and len(j[2]) != 0):
                 print("<<", "(", "|".join(j[0]), ") =",
-                      "(", "|".join(j[2]), ")", j[1], ">>")
+                     "(", "|".join(j[2]), ")", j[1], ">>")
     algebraicRemovalMethod(inputData)
     # print(regexOutput)
+
+def simplificar(inputData):
+    for i in reversed(states):
+        for j in formatedStates:
+            if(i == j[0] and len(j[2]) != 0):
+                for x in formatedStates:
+                    #print('j[0] - '+str(j[0]) + ' = x[0] - ' + str(x[0]) + 'j[2] != x[2] - ' + str(j[2]) + ' != '+ str(x[2]))
+                    if(j[0] == x[0] and j[1] == x[1] and j[2] != x[2]):
+                        x[2] = '('+x[2] + ' + '+ j[2]+')'
+                        j[2] = ''
+                        j[1] = ''
+                    elif(j[0] == x[0] and j[2] == x[2] and j[1] != x[1]):
+                        x[1] = '('+x[1] + ' + '+ j[1]+')'
+                        j[2] = ''
+                        j[1] = ''
+
+
+
+def arden(inputData, esquerda, centro, direita):
+    for i in reversed(states):
+        for j in formatedStates:
+            if(i == j[0] and len(j[2]) != 0):
+                if(j[0] == esquerda and j[1] != centro and j[2] != direita):
+                    print("da pra aplicar arden")
 
 
 def algebraicRemovalMethod(inputData):
@@ -25,10 +55,13 @@ def algebraicRemovalMethod(inputData):
     for i in reversed(states):
         for j in formatedStates:
             if(i == j[0] and len(j[2]) != 0):
-                # print(j[0], " = ", j[2], j[1])
-                if(len(regexOutput) != 0 and regexOutput[-1] in inputData['alphabet']):
-                    regexOutput += "+"
-                regexOutput += j[1]
+                print(j[0], " = ", j[2], j[1])
+                if(j[0] == j[2] or j[0] == j[1]):
+                    print("auto referencia")
+                    arden(inputData, j[0], j[1], j[2])
+            #    if(len(regexOutput) != 0 and regexOutput[-1] in inputData['alphabet']):
+                #    regexOutput += "+"
+                #regexOutput += j[1]
         # print(">>>>", inputData['initial'] in i, inputData['initial'], i)
         if(inputData['initial'] in i):
             regexOutput = "("+regexOutput+")*"
