@@ -3,7 +3,7 @@ import sys
 states = []
 formatedStates = []
 regexOutput = ""
-
+equacoes = []
 
 def main():
     inputData = getFileName()
@@ -16,38 +16,38 @@ def main():
             #if(i == j[0] and len(j[2]) != 0):
                 #print("<<", "(", "|".join(j[0]), ") =",
                 #     "(", "|".join(j[2]), ")", j[1], ">>")
-    simplificar(inputData)
+    #simplificar(inputData)
     for i in reversed(states):
         for j in formatedStates:
             if(i == j[0] and len(j[2]) != 0):
-                print("<<", "(", "|".join(j[0]), ") =",
-                     "(", "|".join(j[2]), ")", j[1], ">>")
+                lista = []
+                aux = "|".join(j[0])
+                lista.append(aux)
+                aux2 = "("+"|".join(j[2])+")"+str(j[1])
+                lista.append(aux2)
+                equacoes.append(lista)
+    for i in equacoes:
+        c = 0
+        for j in equacoes:
+            if(i[0] == j[0]):
+                c += 1
+                if(i[1] != j[1]):
+                    i[1] = i[1]+'+'+j[1]
+                    equacoes.remove(j)
+                elif(c > 1):
+                    equacoes.remove(j)
+    for i in equacoes:
+        for j in i[0].split('|'):
+            if(j == inputData['initial']):
+                i[1] = i[1]+'+$'
+                break
+
+    for i in equacoes:
+        print(i[0] +" = "+ i[1])
+
     #algebraicRemovalMethod(inputData)
     # print(regexOutput)
 
-def simplificar(inputData):
-    for i in reversed(states):
-        for j in formatedStates:
-            if(i == j[0] and len(j[2]) != 0):
-                for x in formatedStates:
-                    #print('j[0] - '+str(j[0]) + ' = x[0] - ' + str(x[0]) + 'j[2] != x[2] - ' + str(j[2]) + ' != '+ str(x[2]))
-                    if(j[0] == x[0]):
-                        if(j[1] == x[1] and j[2] != x[2]):
-                            x[2] = '('+j[2] +'+'+ x[2]+')'
-                            formatedStates.remove(j)
-                            break
-                        elif(j[1] == x[2] and j[2] != x[1]):
-                            x[1] =  '('+j[2] +'+'+ x[1]+')'
-                            formatedStates.remove(j)
-                            break
-                        elif(j[2] == x[1] and j[1] != x[2]):
-                            x[2] = '('+j[1] +'+'+ x[2]+')'
-                            formatedStates.remove(j)
-                            break
-                        elif(j[2] == x[2] and j[1] != x[1]):
-                            x[1] = '('+j[1] +'+'+ x[1]+')'
-                            formatedStates.remove(j)
-                            break
 
 
 
