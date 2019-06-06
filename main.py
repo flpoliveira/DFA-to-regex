@@ -1,15 +1,16 @@
 import json
 import sys
+import re
 states = []
 formatedStates = []
 regexOutput = ""
 equacoes = []
+estados = []
 
 def main():
-    inputData = getFileName()
-    print(getAllTransitionsWithAListOfResults(
-        inputData['accepting'], inputData))
-    recursiveNewStateChecker(inputData, inputData['accepting'])
+	inputData = getFileName()
+	print(getAllTransitionsWithAListOfResults(inputData['accepting'], inputData))
+	recursiveNewStateChecker(inputData, inputData['accepting'])
 #    print("<<", states, ">>")
     #for i in reversed(states):
     #    for j in formatedStates:
@@ -17,33 +18,42 @@ def main():
                 #print("<<", "(", "|".join(j[0]), ") =",
                 #     "(", "|".join(j[2]), ")", j[1], ">>")
     #simplificar(inputData)
-    for i in reversed(states):
-        for j in formatedStates:
-            if(i == j[0] and len(j[2]) != 0):
-                lista = []
-                aux = "|".join(j[0])
-                lista.append(aux)
-                aux2 = "("+"|".join(j[2])+")"+str(j[1])
-                lista.append(aux2)
-                equacoes.append(lista)
-    for i in equacoes:
-        c = 0
-        for j in equacoes:
-            if(i[0] == j[0]):
-                c += 1
-                if(i[1] != j[1]):
-                    i[1] = i[1]+'+'+j[1]
-                    equacoes.remove(j)
-                elif(c > 1):
-                    equacoes.remove(j)
-    for i in equacoes:
-        for j in i[0].split('|'):
-            if(j == inputData['initial']):
-                i[1] = i[1]+'+$'
-                break
+	for i in reversed(states):
+		for j in formatedStates:
+			if(i == j[0] and len(j[2]) != 0):
+				lista = []
+				aux = "|".join(j[0])
+				lista.append(aux)
+				aux2 = "<"+"|".join(j[2])+">"+str(j[1])
+				lista.append(aux2)
+				equacoes.append(lista)
+	for i in equacoes:
+		c = 0
+		for j in equacoes:
+			if(i[0] == j[0]):
+				c += 1
+				if(i[1] != j[1]):
+					i[1] = i[1]+'+'+j[1]
+					equacoes.remove(j)
+				elif(c > 1):
+					equacoes.remove(j)
+	for i in equacoes:
+		for j in i[0].split('|'):
+			if(j == inputData['initial']):
+				i[1] = i[1]+'+$'
+				break
 
-    for i in equacoes:
-        print(i[0] +" = "+ i[1])
+	for i in equacoes:
+		print(i[1])
+		print("--",re.findall("<[s0s1s2|]*>",i[1]))
+		print("---",re.sub("<[s0s1s2|]*>","",i[1]))
+
+	for i in equacoes:
+		x = "[",i[0],"]"
+		estados.append(x)
+
+
+        # print(i[0] +" = "+ i[1])
 
     #algebraicRemovalMethod(inputData)
     # print(regexOutput)
