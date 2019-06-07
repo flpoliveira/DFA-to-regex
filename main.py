@@ -29,6 +29,7 @@ def main():
 				equacoes.append(lista)
 	for i in equacoes:
 		c = 0
+		estados.append(i[0])
 		for j in equacoes:
 			if(i[0] == j[0]):
 				c += 1
@@ -44,20 +45,33 @@ def main():
 				break
 
 	for i in equacoes:
-		print(i[1])
-		print("--",re.findall("<[s0s1s2|]*>",i[1]))
-		print("---",re.sub("<[s0s1s2|]*>","",i[1]))
-
+		print("Antes -------")
+		print(i[0]+"="+i[1])
+		for j in estados:
+			#if(len(re.findall("<["+j+"]*>",i[1])) > 1):
+			aux1 = []
+			aux2 = []
+			for x in i[1].split("+"):
+				aux = x.replace("<"+j+">", '')
+				y = x.replace(aux, '')
+				if('<'+j+'>' == y):
+					aux1.append(aux)
+				else:
+					aux2.append(x)
+			if(len(aux1) > 1):
+				i[1] = '<'+j+'>('+'+'.join(aux1)+')'+'+'+'+'.join(aux2)
+		print("Depois -----")
+		print(i[0]+"="+i[1])
+		print("------------")
 	for i in equacoes:
-		x = "[",i[0],"]"
-		estados.append(x)
+		print(i[0]+'='+i[1])
+
 
 
         # print(i[0] +" = "+ i[1])
 
     #algebraicRemovalMethod(inputData)
     # print(regexOutput)
-
 
 
 
