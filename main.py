@@ -21,6 +21,8 @@ def main():
 	for i in reversed(states):
 		for j in formatedStates:
 			if(i == j[0] and len(j[2]) != 0):
+				print("<<", "(", "|".join(j[0]), ") =",
+                     "(", "|".join(j[2]), ")", j[1], ">>")
 				lista = []
 				aux = "|".join(j[0])
 				lista.append(aux)
@@ -38,32 +40,21 @@ def main():
 					equacoes.remove(j)
 				elif(c > 1):
 					equacoes.remove(j)
+		aa = set()
+		for x in i[1].split('+'):
+			aa.add(x)
+		i[1] = '+'.join(aa)
+
 	for i in equacoes:
 		for j in i[0].split('|'):
 			if(j == inputData['initial']):
 				i[1] = i[1]+'+$'
 				break
 
+	simplificar()
 	for i in equacoes:
-		print("Antes -------")
-		print(i[0]+"="+i[1])
-		for j in estados:
-			#if(len(re.findall("<["+j+"]*>",i[1])) > 1):
-			aux1 = []
-			aux2 = []
-			for x in i[1].split("+"):
-				aux = x.replace("<"+j+">", '')
-				y = x.replace(aux, '')
-				if('<'+j+'>' == y):
-					aux1.append(aux)
-				else:
-					aux2.append(x)
-			if(len(aux1) > 1):
-				i[1] = '<'+j+'>('+'+'.join(aux1)+')'+'+'+'+'.join(aux2)
-		print("Depois -----")
-		print(i[0]+"="+i[1])
-		print("------------")
-	for i in equacoes:
+		print(i[0]+'='+i[1])
+		arden(i)
 		print(i[0]+'='+i[1])
 
 
@@ -73,35 +64,55 @@ def main():
     #algebraicRemovalMethod(inputData)
     # print(regexOutput)
 
+def simplificar():
+		for i in equacoes:
+			#print("Antes -------")
+			#print(i[0]+"="+i[1])
+			for j in estados:
+				#if(len(re.findall("<["+j+"]*>",i[1])) > 1):
+				aux1 = []
+				aux2 = []
+				for x in i[1].split("+"):
+					aux = x.replace("<"+j+">", '')
+					y = x.replace(aux, '')
+					if('<'+j+'>' == y):
+						aux1.append(aux)
+					else:
+						aux2.append(x)
+				if(len(aux1) > 1):
+					i[1] = ''
+					if(len(aux2) > 0):
+						i[1] = '+'.join(aux2)+'+'
+					i[1] = i[1]+'<'+j+'>('+'|'.join(aux1)+')'
+			#print("Depois -----")
+			#print(i[0]+"="+i[1])
+			#print("------------")
 
 
 
+def arden(equacao):
+	#print(equacao[0]+'='+equacao[1])
+	aux = ''
+	aux1 = ''
+	aux2 = []
+	for x in equacao[1].split('+'):
+		aux = x.replace("<"+equacao[0]+">", '')
+		y = x.replace(aux, '')
+		#print(aux)
+		if('<'+equacao[0]+'>' == y):
+			aux1 = aux
+		else:
+			aux2.append(x)
+	if(aux1 != ''):
+		aux1 = aux1+'*'
+		saida = ''
+		for x in aux2:
+			if(x == '$'):
+				saida = saida + aux1 + '+'
+			else:
+				saida = saida + x + aux1 + '+'
+		equacao[1] = saida[:-1]
 
-def arden(inputData, estado):
-    for i in reversed(states):
-        for j in formatedStates:
-            if(i == j[0] and len(j[2]) != 0):
-                if(j[0] == estado[0] and (estado[1] != j[1] or estado[2] != j[2])):
-                    print("Nao deu")
-
-
-def algebraicRemovalMethod(inputData):
-    global regexOutput
-    for i in reversed(states):
-        for j in formatedStates:
-            if(i == j[0] and len(j[2]) != 0):
-                print(j[0], " = ", j[2], j[1])
-                if(j[0] == j[2] or j[0] == j[1]):
-                    print("auto referencia")
-                    arden(inputData, j)
-            #    if(len(regexOutput) != 0 and regexOutput[-1] in inputData['alphabet']):
-                #    regexOutput += "+"
-                #regexOutput += j[1]
-        # print(">>>>", inputData['initial'] in i, inputData['initial'], i)
-        if(inputData['initial'] in i):
-            regexOutput = "("+regexOutput+")*"
-        # print(">>>", regexOutput)
-    return
 
 
 def recursiveNewStateChecker(inputData, state):
