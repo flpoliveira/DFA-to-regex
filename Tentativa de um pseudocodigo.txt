@@ -1,0 +1,26 @@
+vetor[Numero de Equações];
+UltimaEquação;
+
+void Função(Equação)
+{
+	vetor[Equação] = TRUE;
+
+	Para cada equação referenciada de Equação faça
+	{
+		Se(!vetor[EquaçãoReferenciada])
+		{
+			Função(EquaçãoReferenciada)
+		}
+		SeNão(UltimaEquação == Equação)
+		{
+			Substituir Equação Referenciada na Equação.
+		}
+	}
+
+	Se(É possivel aplicar Arden)
+	{
+		Simplificar(Equação)
+		Arden(Equação)
+	}
+}
+

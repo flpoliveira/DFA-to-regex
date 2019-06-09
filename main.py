@@ -6,6 +6,8 @@ formatedStates = []
 regexOutput = ""
 equacoes = []
 estados = []
+UltimaEquacao = ''
+vetor = []
 
 def main():
 	inputData = getFileName()
@@ -51,12 +53,18 @@ def main():
 				i[1] = i[1]+'+$'
 				break
 
-	simplificar()
-	for i in equacoes:
-		print(i[0]+'='+i[1])
-		arden(i)
-		print(i[0]+'='+i[1])
 
+	for i in equacoes:
+		arden(i)
+		UltimaEquacao = i[0]
+		printEquacao(i)
+
+	# for i in equacoes:
+	# 	if(i[0] == UltimaEquacao):
+	# 		funcao(i)
+	for i in equacoes:
+		printEquacao(i)
+		print(equacaoReferenciada(i))
 
 
         # print(i[0] +" = "+ i[1])
@@ -83,14 +91,16 @@ def simplificar():
 					i[1] = ''
 					if(len(aux2) > 0):
 						i[1] = '+'.join(aux2)+'+'
-					i[1] = i[1]+'<'+j+'>('+'|'.join(aux1)+')'
+					i[1] = i[1]+'<'+j+'>('+'&'.join(aux1)+')'
 			#print("Depois -----")
 			#print(i[0]+"="+i[1])
 			#print("------------")
 
-
+def printEquacao(equacao):
+	print('<'+equacao[0]+'>'+'='+equacao[1].replace('&', '+'))
 
 def arden(equacao):
+	simplificar()
 	#print(equacao[0]+'='+equacao[1])
 	aux = ''
 	aux1 = ''
@@ -113,6 +123,29 @@ def arden(equacao):
 				saida = saida + x + aux1 + '+'
 		equacao[1] = saida[:-1]
 
+def funcao(equacao):
+	vetor.append(equacao[0])
+
+	for i in equacaoReferenciada(equacao):
+		if i[0] not in vetor:
+			funcao(i)
+			equacao[1].replace('<'+i[0]+'>', '('+i[1]+')')
+		elif(UltimaEquacao == equacao[0]):
+			equacao[1].replace('<'+i[0]+'>', '('+i[1]+')')
+	arden(equacao)
+
+def equacaoReferenciada(equacao):
+	retorno = []
+	for i in equacao[1].split('+'):
+		for j in estados:
+			aux = i.replace('<'+j+'>', '')
+			y = i.replace(aux, '')
+			if(y == '<'+j+'>'):
+				for x in equacoes:
+					if(x[0] == j):
+						retorno.append(x)
+						break
+	return retorno
 
 
 def recursiveNewStateChecker(inputData, state):
