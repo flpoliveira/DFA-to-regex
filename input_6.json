@@ -1,0 +1,71 @@
+{
+    "states": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+    ],
+    "initial": "A",
+    "accepting": [
+        "C",
+        "E"
+    ],
+    "alphabet": [
+        "1",
+        "0"
+    ],
+    "transitions": [
+        {
+            "from": "A",
+            "letter": "1",
+            "to": "B"
+        },
+        {
+            "from": "A",
+            "letter": "0",
+            "to": "D"
+        },
+        {
+            "from": "B",
+            "letter": "1",
+            "to": "C"
+        },
+        {
+            "from": "B",
+            "letter": "0",
+            "to": "E"
+        },
+        {
+            "from": "C",
+            "letter": "1",
+            "to": "C"
+        },
+        {
+            "from": "C",
+            "letter": "0",
+            "to": "E"
+        },
+        {
+            "from": "D",
+            "letter": "1",
+            "to": "B"
+        },
+        {
+            "from": "D",
+            "letter": "0",
+            "to": "D"
+        },
+        {
+            "from": "E",
+            "letter": "1",
+            "to": "B"
+        },
+        {
+            "from": "E",
+            "letter": "0",
+            "to": "D"
+        }
+      
+    ]
+}

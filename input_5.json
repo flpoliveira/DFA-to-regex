@@ -1,11 +1,11 @@
 {
     "states": [
-        "s0",
-        "s1"
+        "0",
+        "1"
     ],
-    "initial": "s0",
+    "initial": "0",
     "accepting": [
-        "s1"
+        "1"
     ],
     "alphabet": [
         "a",
@@ -13,14 +13,14 @@
     ],
     "transitions": [
         {
-            "from": "s0",
+            "from": "0",
             "letter": "a",
-            "to": "s0"
+            "to": "0"
         },
         {
-            "from": "s0",
+            "from": "0",
             "letter": "b",
-            "to": "s1"
+            "to": "1"
         }
       
     ]
