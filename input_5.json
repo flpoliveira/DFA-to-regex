@@ -1,0 +1,27 @@
+{
+    "states": [
+        "s0",
+        "s1"
+    ],
+    "initial": "s0",
+    "accepting": [
+        "s1"
+    ],
+    "alphabet": [
+        "a",
+        "b"
+    ],
+    "transitions": [
+        {
+            "from": "s0",
+            "letter": "a",
+            "to": "s0"
+        },
+        {
+            "from": "s0",
+            "letter": "b",
+            "to": "s1"
+        }
+      
+    ]
+}

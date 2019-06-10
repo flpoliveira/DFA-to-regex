@@ -6,7 +6,7 @@ formatedStates = []
 regexOutput = ""
 equacoes = []
 estados = set()
-vetor = []
+#vetor = []
 log = []
 
 def main():
@@ -136,15 +136,13 @@ def arden(equacao):
 		log.append('Obtemos '+ printEquacao(equacao))
 
 def funcao(equacao, pai):
-	vetor.append(equacao[0])
+	#vetor.append(equacao[0])
 	#print(vetor)
 	pai.append(equacao[0])
 	#print(pai)
 	for i in equacaoReferenciada(equacao):
-		if i[0] not in vetor:
+		if(i[0] not in pai):
 			funcao(i, pai)
-			substituir(i, equacao)
-		elif(i[0] not in pai):
 			substituir(i, equacao)
 
 	arden(equacao)
