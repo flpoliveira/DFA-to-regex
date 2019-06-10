@@ -5,7 +5,7 @@ states = []
 formatedStates = []
 regexOutput = ""
 equacoes = []
-estados = []
+estados = set()
 UltimaEquacao = ''
 vetor = []
 
@@ -33,7 +33,7 @@ def main():
 				equacoes.append(lista)
 	for i in equacoes:
 		c = 0
-		estados.append(i[0])
+		estados.add(i[0])
 		for j in equacoes:
 			if(i[0] == j[0]):
 				c += 1
@@ -59,12 +59,12 @@ def main():
 		UltimaEquacao = i[0]
 		printEquacao(i)
 
-	# for i in equacoes:
-	# 	if(i[0] == UltimaEquacao):
-	# 		funcao(i)
+	funcao(i)
+	substituir(equacoes[1], equacoes[6])
+	arden(equacoes[6])
 	for i in equacoes:
 		printEquacao(i)
-		print(equacaoReferenciada(i))
+		##print(equacaoReferenciada(i))
 
 
         # print(i[0] +" = "+ i[1])
@@ -114,7 +114,10 @@ def arden(equacao):
 		else:
 			aux2.append(x)
 	if(aux1 != ''):
-		aux1 = aux1+'*'
+		if ( len(aux1) == 1 ) or (aux1.startswith('(') and aux1.endswith(')')):
+			aux1 = aux1+'*'
+		else:
+			aux1 = '('+aux1+')*'
 		saida = ''
 		for x in aux2:
 			if(x == '$'):
@@ -125,14 +128,33 @@ def arden(equacao):
 
 def funcao(equacao):
 	vetor.append(equacao[0])
-
 	for i in equacaoReferenciada(equacao):
 		if i[0] not in vetor:
 			funcao(i)
-			equacao[1].replace('<'+i[0]+'>', '('+i[1]+')')
-		elif(UltimaEquacao == equacao[0]):
-			equacao[1].replace('<'+i[0]+'>', '('+i[1]+')')
+			substituir(i, equacao)
+		if(UltimaEquacao == equacao[0]):
+			substituir(i, equacao)
 	arden(equacao)
+def substituir(equacao2, equacao1):
+	listaSemEquacao2 = []
+	comEquacao2 = ''
+	for x in equacao1[1].split('+'):
+		aux = x.replace('<'+equacao2[0]+'>', '')
+		y = x.replace(aux, '')
+		if(y == '<'+equacao2[0]+'>'):
+			comEquacao2 = aux
+		else:
+			listaSemEquacao2.append(x)
+	saida = ''
+	for x in equacao2[1].split('+'):
+		if x == '$':
+			saida = saida + comEquacao2 + '+'
+		else:
+			saida = saida + x + comEquacao2 + '+'
+	for i in listaSemEquacao2:
+		saida = saida + i+'+'
+	equacao1[1] = saida[:-1]
+
 
 def equacaoReferenciada(equacao):
 	retorno = []
