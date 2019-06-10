@@ -1,0 +1,19 @@
+Apos aplicar o algoritmo, obtivemos as seguintes equacoes
+---------------------------------------------------------
+<s2>=<s2>1+<s1>0
+<s0|s2>=<s0|s1>0+<s2>1+$
+<s0|s1>=<s0|s1>1+<s0|s2>0+$
+<s1>=<s2>0+<s0|s1>1
+---------------------------------------------------------
+Aplicando Arden a equacao <s2>=<s2>1+<s1>0
+Obtemos <s2>=<s1>01*
+[['s2', '<s1>01*']]
+[['s1', '<s2>0+<s0|s1>1']]
+Substituindo <s2> em <s1>
+<s2>=<s1>01*
+<s1>=<s2>0+<s0|s1>1
+<s1>=<s1>01*0+<s0|s1>1
+Aplicando Arden a equacao <s1>=<s1>01*0+<s0|s1>1
+Obtemos <s1>=<s0|s1>1(01*0)*
+Logo, a ER para este AFD fica:
+<s0|s1>1(01*0)*

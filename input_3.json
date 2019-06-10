@@ -1,0 +1,59 @@
+{
+    "states": [
+        "pp",
+        "ip",
+        "ii",
+        "pi"
+    ],
+    "initial": "pp",
+    "accepting": [
+        "ii"
+    ],
+    "alphabet": [
+        "a",
+        "b"
+    ],
+    "transitions": [
+        {
+            "from": "pp",
+            "letter": "a",
+            "to": "ip"
+        },
+        {
+            "from": "pp",
+            "letter": "b",
+            "to": "pi"
+        },
+        {
+            "from": "ip",
+            "letter": "a",
+            "to": "pp"
+        },
+        {
+            "from": "ip",
+            "letter": "b",
+            "to": "ii"
+        },
+        {
+            "from": "pi",
+            "letter": "a",
+            "to": "ii"
+        },
+        {
+            "from": "pi",
+            "letter": "b",
+            "to": "pp"
+        },
+        {
+            "from": "ii",
+            "letter": "a",
+            "to": "pi"
+        },
+        {
+            "from": "ii",
+            "letter": "b",
+            "to": "ip"
+        }
+
+    ]
+}
