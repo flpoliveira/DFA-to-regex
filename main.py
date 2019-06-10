@@ -7,10 +7,11 @@ regexOutput = ""
 equacoes = []
 estados = set()
 vetor = []
+log = []
 
 def main():
 	inputData = getFileName()
-	print(getAllTransitionsWithAListOfResults(inputData['accepting'], inputData))
+	#print(getAllTransitionsWithAListOfResults(inputData['accepting'], inputData))
 	recursiveNewStateChecker(inputData, inputData['accepting'])
 #    print("<<", states, ">>")
     #for i in reversed(states):
@@ -51,18 +52,18 @@ def main():
 			if(j == inputData['initial']):
 				i[1] = i[1]+'+$'
 				break
-
+	log.append('Apos aplicar o algoritmo, obtivemos as seguintes equacoes')
+	log.append('---------------------------------------------------------')
 	for i in equacoes:
-		arden(i)
-
-	print('===============================================================')
-	for i in equacoes:
-		printEquacao(i)
-		UltimaEquacao = i[0]
-	print('===============================================================')
-	print('A Ultima equacao que temos que resolver eh a de '+ UltimaEquacao)
+		log.append(printEquacao(i))
+	log.append('---------------------------------------------------------')
 	pai = []
 	funcao(i, pai)
+	log.append('Logo, a ER para este AFD fica:')
+	log.append(i[1].replace('&', '+'))
+	for x in log:
+		print(x)
+
 	#substituir(equacoes[1], equacoes[6])
 	#arden(equacoes[6])
 	#for i in equacoes:
@@ -76,7 +77,7 @@ def main():
     # print(regexOutput)
 
 def simplificar():
-		print('simplificando as equacoes')
+
 		for i in equacoes:
 			#print("Antes -------")
 			#print(i[0]+"="+i[1])
@@ -92,23 +93,21 @@ def simplificar():
 					else:
 						aux2.append(x)
 				if(len(aux1) > 1):
+					log.append('Simplificando a equacao ' + printEquacao(i))
 					i[1] = ''
 					if(len(aux2) > 0):
 						i[1] = '+'.join(aux2)+'+'
 					i[1] = i[1]+'<'+j+'>('+'&'.join(aux1)+')'
+					log.append('Obtemos ' + printEquacao(i))
 			#print("Depois -----")
 			#print(i[0]+"="+i[1])
 			#print("------------")
 
 def printEquacao(equacao):
-	print('<'+equacao[0]+'>'+'='+equacao[1].replace('&', '+'))
+	return '<'+equacao[0]+'>'+'='+equacao[1].replace('&', '+')
 
 def arden(equacao):
-	print('Tentando aplicar arden a equacao')
-	printEquacao(equacao)
 	simplificar()
-	print('Apos simplificacao')
-	printEquacao(equacao)
 	#print(equacao[0]+'='+equacao[1])
 	aux = ''
 	aux1 = ''
@@ -122,6 +121,7 @@ def arden(equacao):
 		else:
 			aux2.append(x)
 	if(aux1 != ''):
+		log.append('Aplicando Arden a equacao '+ printEquacao(equacao))
 		if ( len(aux1) == 1 ) or (aux1.startswith('(') and aux1.endswith(')')):
 			aux1 = aux1+'*'
 		else:
@@ -133,18 +133,15 @@ def arden(equacao):
 			else:
 				saida = saida + x + aux1 + '+'
 		equacao[1] = saida[:-1]
-	print('Apos o Arden')
-	printEquacao(equacao)
+		log.append('Obtemos '+ printEquacao(equacao))
 
 def funcao(equacao, pai):
-	print('Resolvendo equacao '+ equacao[0])
 	vetor.append(equacao[0])
-	print(vetor)
+	#print(vetor)
 	pai.append(equacao[0])
-	print(pai)
+	#print(pai)
 	for i in equacaoReferenciada(equacao):
 		if i[0] not in vetor:
-
 			funcao(i, pai)
 			substituir(i, equacao)
 		elif(i[0] not in pai):
@@ -154,9 +151,9 @@ def funcao(equacao, pai):
 	pai.pop()
 
 def substituir(equacao2, equacao1):
-	print('Substituindo ' + equacao2[0] + ' em ' + equacao1[0])
-	printEquacao(equacao2)
-	printEquacao(equacao1)
+	log.append('Substituindo <' + equacao2[0] + '> em <' + equacao1[0]+'>')
+	log.append(printEquacao(equacao2))
+	log.append(printEquacao(equacao1))
 	listaSemEquacao2 = []
 	comEquacao2 = ''
 	for x in equacao1[1].split('+'):
@@ -175,8 +172,7 @@ def substituir(equacao2, equacao1):
 	for i in listaSemEquacao2:
 		saida = saida + i+'+'
 	equacao1[1] = saida[:-1]
-	print('Apos substituicao')
-	printEquacao(equacao1)
+	log.append(printEquacao(equacao1))
 
 
 def equacaoReferenciada(equacao):
@@ -218,7 +214,7 @@ def getAllTransitionsWithAListOfResults(listOfResults, inputData):
             if(x['to'] in listOfResults and x['letter'] == y):
                 aux.append(x['from'])
         response.append(aux)
-        print("[", listOfResults, y, "]", " >>",  aux)
+        #print("[", listOfResults, y, "]", " >>",  aux)
         formatedStates.append([listOfResults, y, aux])
 
     return response
