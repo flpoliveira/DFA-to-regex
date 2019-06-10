@@ -23,10 +23,10 @@ Apos simplificacao
 Apos o Arden
 <s0>=<s1>b+$
 Tentando aplicar arden a equacao
-<s2>=<s0>b+<s2>a
+<s2>=<s2>a+<s0>b
 simplificando as equacoes
 Apos simplificacao
-<s2>=<s0>b+<s2>a
+<s2>=<s2>a+<s0>b
 Apos o Arden
 <s2>=<s0>ba*
 Tentando aplicar arden a equacao
@@ -51,10 +51,10 @@ Apos simplificacao
 Apos o Arden
 <s1|s2>=<s0|s1|s2>a+<s0|s2>b
 Tentando aplicar arden a equacao
-<s0|s1>=<s1|s2>b+<s0|s1>a+$
+<s0|s1>=<s0|s1>a+<s1|s2>b+$
 simplificando as equacoes
 Apos simplificacao
-<s0|s1>=<s1|s2>b+<s0|s1>a+$
+<s0|s1>=<s0|s1>a+<s1|s2>b+$
 Apos o Arden
 <s0|s1>=<s1|s2>ba*+a*
 Tentando aplicar arden a equacao

@@ -62,7 +62,7 @@ def main():
 	print('===============================================================')
 	print('A Ultima equacao que temos que resolver eh a de '+ UltimaEquacao)
 	pai = []
-	funcao(i, UltimaEquacao, pai)
+	funcao(i, pai)
 	#substituir(equacoes[1], equacoes[6])
 	#arden(equacoes[6])
 	#for i in equacoes:
@@ -136,7 +136,7 @@ def arden(equacao):
 	print('Apos o Arden')
 	printEquacao(equacao)
 
-def funcao(equacao, ultima, pai):
+def funcao(equacao, pai):
 	print('Resolvendo equacao '+ equacao[0])
 	vetor.append(equacao[0])
 	print(vetor)
@@ -145,11 +145,9 @@ def funcao(equacao, ultima, pai):
 	for i in equacaoReferenciada(equacao):
 		if i[0] not in vetor:
 
-			funcao(i, ultima, pai)
+			funcao(i, pai)
 			substituir(i, equacao)
-		elif(i[0] != ultima and i[0] not in pai):
-			substituir(i, equacao)
-		elif(ultima == equacao[0]):
+		elif(i[0] not in pai):
 			substituir(i, equacao)
 
 	arden(equacao)
