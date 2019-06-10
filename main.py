@@ -6,7 +6,6 @@ formatedStates = []
 regexOutput = ""
 equacoes = []
 estados = set()
-UltimaEquacao = ''
 vetor = []
 
 def main():
@@ -23,8 +22,8 @@ def main():
 	for i in reversed(states):
 		for j in formatedStates:
 			if(i == j[0] and len(j[2]) != 0):
-				print("<<", "(", "|".join(j[0]), ") =",
-                     "(", "|".join(j[2]), ")", j[1], ">>")
+				#print("<<", "(", "|".join(j[0]), ") =",
+                     #"(", "|".join(j[2]), ")", j[1], ">>")
 				lista = []
 				aux = "|".join(j[0])
 				lista.append(aux)
@@ -53,17 +52,21 @@ def main():
 				i[1] = i[1]+'+$'
 				break
 
-
 	for i in equacoes:
 		arden(i)
-		UltimaEquacao = i[0]
-		printEquacao(i)
 
-	funcao(i)
-	substituir(equacoes[1], equacoes[6])
-	arden(equacoes[6])
+	print('===============================================================')
 	for i in equacoes:
 		printEquacao(i)
+		UltimaEquacao = i[0]
+	print('===============================================================')
+	print('A Ultima equacao que temos que resolver eh a de '+ UltimaEquacao)
+	pai = []
+	funcao(i, UltimaEquacao, pai)
+	#substituir(equacoes[1], equacoes[6])
+	#arden(equacoes[6])
+	#for i in equacoes:
+		#printEquacao(i)
 		##print(equacaoReferenciada(i))
 
 
@@ -73,6 +76,7 @@ def main():
     # print(regexOutput)
 
 def simplificar():
+		print('simplificando as equacoes')
 		for i in equacoes:
 			#print("Antes -------")
 			#print(i[0]+"="+i[1])
@@ -100,7 +104,11 @@ def printEquacao(equacao):
 	print('<'+equacao[0]+'>'+'='+equacao[1].replace('&', '+'))
 
 def arden(equacao):
+	print('Tentando aplicar arden a equacao')
+	printEquacao(equacao)
 	simplificar()
+	print('Apos simplificacao')
+	printEquacao(equacao)
 	#print(equacao[0]+'='+equacao[1])
 	aux = ''
 	aux1 = ''
@@ -125,17 +133,32 @@ def arden(equacao):
 			else:
 				saida = saida + x + aux1 + '+'
 		equacao[1] = saida[:-1]
+	print('Apos o Arden')
+	printEquacao(equacao)
 
-def funcao(equacao):
+def funcao(equacao, ultima, pai):
+	print('Resolvendo equacao '+ equacao[0])
 	vetor.append(equacao[0])
+	print(vetor)
+	pai.append(equacao[0])
+	print(pai)
 	for i in equacaoReferenciada(equacao):
 		if i[0] not in vetor:
-			funcao(i)
+
+			funcao(i, ultima, pai)
 			substituir(i, equacao)
-		if(UltimaEquacao == equacao[0]):
+		elif(i[0] != ultima and i[0] not in pai):
 			substituir(i, equacao)
+		elif(ultima == equacao[0]):
+			substituir(i, equacao)
+
 	arden(equacao)
+	pai.pop()
+
 def substituir(equacao2, equacao1):
+	print('Substituindo ' + equacao2[0] + ' em ' + equacao1[0])
+	printEquacao(equacao2)
+	printEquacao(equacao1)
 	listaSemEquacao2 = []
 	comEquacao2 = ''
 	for x in equacao1[1].split('+'):
@@ -154,6 +177,8 @@ def substituir(equacao2, equacao1):
 	for i in listaSemEquacao2:
 		saida = saida + i+'+'
 	equacao1[1] = saida[:-1]
+	print('Apos substituicao')
+	printEquacao(equacao1)
 
 
 def equacaoReferenciada(equacao):

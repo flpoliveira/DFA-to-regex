@@ -1,0 +1,181 @@
+[ ['s1'] a ]  >> ['s0', 's1']
+[ ['s1'] b ]  >> ['s2']
+[['s0', 's1'], ['s2']]
+[ ['s1'] a ]  >> ['s0', 's1']
+[ ['s1'] b ]  >> ['s2']
+[ ['s0', 's1'] a ]  >> ['s0', 's1']
+[ ['s0', 's1'] b ]  >> ['s1', 's2']
+[ ['s1', 's2'] a ]  >> ['s0', 's1', 's2']
+[ ['s1', 's2'] b ]  >> ['s0', 's2']
+[ ['s0', 's1', 's2'] a ]  >> ['s0', 's1', 's2']
+[ ['s0', 's1', 's2'] b ]  >> ['s0', 's1', 's2']
+[ ['s0', 's2'] a ]  >> ['s2']
+[ ['s0', 's2'] b ]  >> ['s0', 's1']
+[ ['s2'] a ]  >> ['s2']
+[ ['s2'] b ]  >> ['s0']
+[ ['s0'] a ]  >> []
+[ ['s0'] b ]  >> ['s1']
+Tentando aplicar arden a equacao
+<s0>=<s1>b+$
+simplificando as equacoes
+Apos simplificacao
+<s0>=<s1>b+$
+Apos o Arden
+<s0>=<s1>b+$
+Tentando aplicar arden a equacao
+<s2>=<s0>b+<s2>a
+simplificando as equacoes
+Apos simplificacao
+<s2>=<s0>b+<s2>a
+Apos o Arden
+<s2>=<s0>ba*
+Tentando aplicar arden a equacao
+<s0|s2>=<s0|s1>b+<s2>a+$
+simplificando as equacoes
+Apos simplificacao
+<s0|s2>=<s0|s1>b+<s2>a+$
+Apos o Arden
+<s0|s2>=<s0|s1>b+<s2>a+$
+Tentando aplicar arden a equacao
+<s0|s1|s2>=$+<s0|s1|s2>(a+b)
+simplificando as equacoes
+Apos simplificacao
+<s0|s1|s2>=$+<s0|s1|s2>(a+b)
+Apos o Arden
+<s0|s1|s2>=(a+b)*
+Tentando aplicar arden a equacao
+<s1|s2>=<s0|s1|s2>a+<s0|s2>b
+simplificando as equacoes
+Apos simplificacao
+<s1|s2>=<s0|s1|s2>a+<s0|s2>b
+Apos o Arden
+<s1|s2>=<s0|s1|s2>a+<s0|s2>b
+Tentando aplicar arden a equacao
+<s0|s1>=<s1|s2>b+<s0|s1>a+$
+simplificando as equacoes
+Apos simplificacao
+<s0|s1>=<s1|s2>b+<s0|s1>a+$
+Apos o Arden
+<s0|s1>=<s1|s2>ba*+a*
+Tentando aplicar arden a equacao
+<s1>=<s0|s1>a+<s2>b
+simplificando as equacoes
+Apos simplificacao
+<s1>=<s0|s1>a+<s2>b
+Apos o Arden
+<s1>=<s0|s1>a+<s2>b
+===============================================================
+<s0>=<s1>b+$
+<s2>=<s0>ba*
+<s0|s2>=<s0|s1>b+<s2>a+$
+<s0|s1|s2>=(a+b)*
+<s1|s2>=<s0|s1|s2>a+<s0|s2>b
+<s0|s1>=<s1|s2>ba*+a*
+<s1>=<s0|s1>a+<s2>b
+===============================================================
+A Ultima equacao que temos que resolver eh a de s1
+Resolvendo equacao s1
+['s1']
+['s1']
+Resolvendo equacao s0|s1
+['s1', 's0|s1']
+['s1', 's0|s1']
+Resolvendo equacao s1|s2
+['s1', 's0|s1', 's1|s2']
+['s1', 's0|s1', 's1|s2']
+Resolvendo equacao s0|s1|s2
+['s1', 's0|s1', 's1|s2', 's0|s1|s2']
+['s1', 's0|s1', 's1|s2', 's0|s1|s2']
+Tentando aplicar arden a equacao
+<s0|s1|s2>=(a+b)*
+simplificando as equacoes
+Apos simplificacao
+<s0|s1|s2>=(a+b)*
+Apos o Arden
+<s0|s1|s2>=(a+b)*
+Substituindo s0|s1|s2 em s1|s2
+<s0|s1|s2>=(a+b)*
+<s1|s2>=<s0|s1|s2>a+<s0|s2>b
+Apos substituicao
+<s1|s2>=(a+b)*a+<s0|s2>b
+Resolvendo equacao s0|s2
+['s1', 's0|s1', 's1|s2', 's0|s1|s2', 's0|s2']
+['s1', 's0|s1', 's1|s2', 's0|s2']
+Resolvendo equacao s2
+['s1', 's0|s1', 's1|s2', 's0|s1|s2', 's0|s2', 's2']
+['s1', 's0|s1', 's1|s2', 's0|s2', 's2']
+Resolvendo equacao s0
+['s1', 's0|s1', 's1|s2', 's0|s1|s2', 's0|s2', 's2', 's0']
+['s1', 's0|s1', 's1|s2', 's0|s2', 's2', 's0']
+Tentando aplicar arden a equacao
+<s0>=<s1>b+$
+simplificando as equacoes
+Apos simplificacao
+<s0>=<s1>b+$
+Apos o Arden
+<s0>=<s1>b+$
+Substituindo s0 em s2
+<s0>=<s1>b+$
+<s2>=<s0>ba*
+Apos substituicao
+<s2>=<s1>bba*+ba*
+Tentando aplicar arden a equacao
+<s2>=<s1>bba*+ba*
+simplificando as equacoes
+Apos simplificacao
+<s2>=<s1>bba*+ba*
+Apos o Arden
+<s2>=<s1>bba*+ba*
+Substituindo s2 em s0|s2
+<s2>=<s1>bba*+ba*
+<s0|s2>=<s0|s1>b+<s2>a+$
+Apos substituicao
+<s0|s2>=<s1>bba*a+ba*a+<s0|s1>b+$
+Tentando aplicar arden a equacao
+<s0|s2>=<s1>bba*a+ba*a+<s0|s1>b+$
+simplificando as equacoes
+Apos simplificacao
+<s0|s2>=<s1>bba*a+ba*a+<s0|s1>b+$
+Apos o Arden
+<s0|s2>=<s1>bba*a+ba*a+<s0|s1>b+$
+Substituindo s0|s2 em s1|s2
+<s0|s2>=<s1>bba*a+ba*a+<s0|s1>b+$
+<s1|s2>=(a+b)*a+<s0|s2>b
+Apos substituicao
+<s1|s2>=<s1>bba*ab+ba*ab+<s0|s1>bb+b+(a+b)*a
+Tentando aplicar arden a equacao
+<s1|s2>=<s1>bba*ab+ba*ab+<s0|s1>bb+b+(a+b)*a
+simplificando as equacoes
+Apos simplificacao
+<s1|s2>=<s1>bba*ab+ba*ab+<s0|s1>bb+b+(a+b)*a
+Apos o Arden
+<s1|s2>=<s1>bba*ab+ba*ab+<s0|s1>bb+b+(a+b)*a
+Substituindo s1|s2 em s0|s1
+<s1|s2>=<s1>bba*ab+ba*ab+<s0|s1>bb+b+(a+b)*a
+<s0|s1>=<s1|s2>ba*+a*
+Apos substituicao
+<s0|s1>=<s1>bba*abba*+ba*abba*+<s0|s1>bbba*+bba*+(a+b)*aba*+a*
+Tentando aplicar arden a equacao
+<s0|s1>=<s1>bba*abba*+ba*abba*+<s0|s1>bbba*+bba*+(a+b)*aba*+a*
+simplificando as equacoes
+Apos simplificacao
+<s0|s1>=<s1>bba*abba*+ba*abba*+<s0|s1>bbba*+bba*+(a+b)*aba*+a*
+Apos o Arden
+<s0|s1>=<s1>bba*abba*(bbba*)*+ba*abba*(bbba*)*+bba*(bbba*)*+(a+b)*aba*(bbba*)*+a*(bbba*)*
+Substituindo s0|s1 em s1
+<s0|s1>=<s1>bba*abba*(bbba*)*+ba*abba*(bbba*)*+bba*(bbba*)*+(a+b)*aba*(bbba*)*+a*(bbba*)*
+<s1>=<s0|s1>a+<s2>b
+Apos substituicao
+<s1>=<s1>bba*abba*(bbba*)*a+ba*abba*(bbba*)*a+bba*(bbba*)*a+(a+b)*aba*(bbba*)*a+a*(bbba*)*a+<s2>b
+Substituindo s2 em s1
+<s2>=<s1>bba*+ba*
+<s1>=<s1>bba*abba*(bbba*)*a+ba*abba*(bbba*)*a+bba*(bbba*)*a+(a+b)*aba*(bbba*)*a+a*(bbba*)*a+<s2>b
+Apos substituicao
+<s1>=<s1>bba*b+ba*b+<s1>bba*abba*(bbba*)*a+ba*abba*(bbba*)*a+bba*(bbba*)*a+(a+b)*aba*(bbba*)*a+a*(bbba*)*a
+Tentando aplicar arden a equacao
+<s1>=<s1>bba*b+ba*b+<s1>bba*abba*(bbba*)*a+ba*abba*(bbba*)*a+bba*(bbba*)*a+(a+b)*aba*(bbba*)*a+a*(bbba*)*a
+simplificando as equacoes
+Apos simplificacao
+<s1>=ba*b+ba*abba*(bbba*)*a+bba*(bbba*)*a+(a+b)*aba*(bbba*)*a+a*(bbba*)*a+<s1>(bba*b+bba*abba*(bbba*)*a)
+Apos o Arden
+<s1>=ba*b(bba*b+bba*abba*(bbba*)*a)*+ba*abba*(bbba*)*a(bba*b+bba*abba*(bbba*)*a)*+bba*(bbba*)*a(bba*b+bba*abba*(bbba*)*a)*+(a+b)*aba*(bbba*)*a(bba*b+bba*abba*(bbba*)*a)*+a*(bbba*)*a(bba*b+bba*abba*(bbba*)*a)*
