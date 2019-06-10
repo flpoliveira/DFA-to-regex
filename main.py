@@ -162,15 +162,20 @@ def substituir(equacao2, equacao1):
 		else:
 			listaSemEquacao2.append(x)
 	saida = ''
-	for x in equacao2[1].split('+'):
-		if x == '$':
-			saida = saida + comEquacao2 + '+'
-		else:
-			saida = saida + x + comEquacao2 + '+'
-	for i in listaSemEquacao2:
-		saida = saida + i+'+'
-	equacao1[1] = saida[:-1]
-	log.append(printEquacao(equacao1))
+	if(len(comEquacao2) != 0):
+		for x in equacao2[1].split('+'):
+			if x == '$':
+				saida = saida + comEquacao2 + '+'
+			else:
+				saida = saida + x + comEquacao2 + '+'
+		for i in listaSemEquacao2:
+			saida = saida + i+'+'
+		equacao1[1] = saida[:-1]
+		log.append(printEquacao(equacao1))
+	else:
+		log.remove('Substituindo <' + equacao2[0] + '> em <' + equacao1[0]+'>')
+		log.remove(printEquacao(equacao2))
+		log.remove(printEquacao(equacao1))
 
 
 def equacaoReferenciada(equacao):
