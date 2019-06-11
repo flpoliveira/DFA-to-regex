@@ -53,7 +53,7 @@ def logger(inputData):
 	log.append('=========================================================\n')
 	pai = []
 	recursiveSubstitution(i, pai)
-	log.append('Logo como não possuem mais vaiaveis a serem substituidas.\nNossa espressao regular para este AFD é equivalente à:')
+	log.append('Logo como não possuem mais vaiaveis a serem substituidas.\nNossa expressao regular equivalente a este AFD é:')
 	log.append(i[1].replace('&', '+'))
 	for x in log:
 		print(x)
