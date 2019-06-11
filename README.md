@@ -50,10 +50,6 @@ Substituindo <s0|s1> em <s1>:
         <s1>=<s0|s1>b
         <s1>=(a+b)*bb+b
 Logo como não possuem mais vaiaveis a serem substituidas.
-<<<<<<< HEAD
 Nossa expressao regular equivalente a este AFD é :
-=======
-Nossa expressao regular para este AFD é equivalente à:
->>>>>>> 449e01ad92278f864752e23764ed51df68af733a
 (a+b)*bb+b`
 ~~~~
