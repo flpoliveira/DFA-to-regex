@@ -12,7 +12,7 @@ def main():
 	inputData = getFileName()
 	recursiveNewStateChecker(inputData, inputData['accepting'])
 	logger(inputData)
-	
+
 
 def logger(inputData):
 	for i in reversed(states):
@@ -51,7 +51,7 @@ def logger(inputData):
 		log.append(printEquacao(i))
 	log.append('---------------------------------------------------------')
 	pai = []
-	funcao(i, pai)
+	recursiveSubstitution(i, pai)
 	log.append('Logo, a ER para este AFD fica:')
 	log.append(i[1].replace('&', '+'))
 	for x in log:
@@ -83,6 +83,7 @@ def printEquacao(equacao):
 	return '<'+equacao[0]+'>'+'='+equacao[1].replace('&', '+')
 
 def arden(equacao):
+
 	simplificar()
 	aux = ''
 	aux1 = ''
@@ -109,20 +110,17 @@ def arden(equacao):
 		equacao[1] = saida[:-1]
 		log.append('Obtemos '+ printEquacao(equacao))
 
-def funcao(equacao, pai):
+def recursiveSubstitution(equacao, pai):
 	pai.append(equacao[0])
 	for i in equacaoReferenciada(equacao):
 		if(i[0] not in pai):
-			funcao(i, pai)
+			recursiveSubstitution(i, pai)
 			substituir(i, equacao)
 
 	arden(equacao)
 	pai.pop()
 
 def substituir(equacao2, equacao1):
-	log.append('Substituindo <' + equacao2[0] + '> em <' + equacao1[0]+'>')
-	log.append(printEquacao(equacao2))
-	log.append(printEquacao(equacao1))
 	listaSemEquacao2 = []
 	comEquacao2 = ''
 	for x in equacao1[1].split('+'):
@@ -134,6 +132,9 @@ def substituir(equacao2, equacao1):
 			listaSemEquacao2.append(x)
 	saida = ''
 	if(len(comEquacao2) != 0):
+		log.append('Substituindo <' + equacao2[0] + '> em <' + equacao1[0]+'>')
+		log.append(printEquacao(equacao2))
+		log.append(printEquacao(equacao1))
 		for x in equacao2[1].split('+'):
 			if x == '$':
 				saida = saida + comEquacao2 + '+'
@@ -143,10 +144,7 @@ def substituir(equacao2, equacao1):
 			saida = saida + i+'+'
 		equacao1[1] = saida[:-1]
 		log.append(printEquacao(equacao1))
-	else:
-		log.remove('Substituindo <' + equacao2[0] + '> em <' + equacao1[0]+'>')
-		log.remove(printEquacao(equacao2))
-		log.remove(printEquacao(equacao1))
+
 
 
 def equacaoReferenciada(equacao):
