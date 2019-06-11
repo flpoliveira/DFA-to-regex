@@ -162,14 +162,22 @@ def equacaoReferenciada(equacao):
 
 
 def recursiveNewStateChecker(inputData, state):
-    if(state not in states and len(state) != 0):
-        states.append(state)
-        response = getAllTransitionsWithAListOfResults(
-            state, inputData)
-        for x in response:
-            recursiveNewStateChecker(inputData, x)
-
-    return
+	if(state not in states and len(state) != 0):
+		states.append(state)
+		response = getAllTransitionsWithAListOfResults(state, inputData)
+		if(inputData['accepting'] == states[-1]):
+			print("Começando pelo estado final <"+"|".join(state)+"> :")
+		for i,j in zip(inputData['alphabet'], response):
+			print(">>> ",state)
+			if(len(j)==0):
+				print("	g(<"+"|".join(state)+">,"+i+") = $")
+			else:
+				print("	g(<"+"|".join(state)+">,"+i+") = <"+"|".join(j)+">")
+				if(i==inputData['alphabet'][-1]):
+					print("Um novo estado apareceu,entao vamos mapear <"+"|".join(j)+"> :")
+		for x in response:
+			recursiveNewStateChecker(inputData, x)
+		return
 
 
 def readInput(path):
