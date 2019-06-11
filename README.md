@@ -2,11 +2,18 @@
 ## Como usar?
 Necessário python 3.7.2
 Para rodar o programa:
-`$ python3 main.py <nomedoarquivo>.json>` 
+
+`$ python3 main.py <nomedoarquivo>.json>`
+
 Na pasta [Automatos](../Automatos) possuem exemplos para testar.
+
 `$ python3 main.py Automatos/input_1.json`
+
 Nesta mesma pasta possui um arquivo [modelo](../Automatos) para facilitar a criacao de novos automatos.
-#### ⚠️ Atenção as letras usadas nos nomes dos estados nao poderão ser usadas como transição  Ex.(❌Estado ["A1"] transição["a"] ❌)⚠️
+
+#### ⚠️ Atenção as letras usadas nos nomes dos estados nao poderão ser usadas como transição  ⚠️
+#### Ex.(❌Estado ["A1"] transição["a"] ❌)
+
 Após a execução a saida deverá ser parecida com isso:
 
 ~~~~
