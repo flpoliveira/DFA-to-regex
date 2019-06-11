@@ -1,0 +1,48 @@
+{
+    "states": [
+        "q0",
+        "q1",
+        "q2"
+    ],
+    "initial": "q0",
+    "accepting": [
+        "q1"
+    ],
+    "alphabet": [
+        "a",
+        "b"
+    ],
+    "transitions": [
+        {
+            "from": "q0",
+            "letter": "a",
+            "to": "q0"
+        },
+        {
+            "from": "q0",
+            "letter": "b",
+            "to": "q1"
+        },
+        {
+            "from": "q1",
+            "letter": "b",
+            "to": "q1"
+        },
+        {
+            "from": "q1",
+            "letter": "a",
+            "to": "q2"
+        },
+        {
+            "from": "q2",
+            "letter": "a",
+            "to": "q1"
+        },
+        {
+            "from": "q2",
+            "letter": "b",
+            "to": "q1"
+        }
+      
+    ]
+}

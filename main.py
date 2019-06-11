@@ -6,25 +6,18 @@ formatedStates = []
 regexOutput = ""
 equacoes = []
 estados = set()
-#vetor = []
 log = []
 
 def main():
 	inputData = getFileName()
-	#print(getAllTransitionsWithAListOfResults(inputData['accepting'], inputData))
 	recursiveNewStateChecker(inputData, inputData['accepting'])
-#    print("<<", states, ">>")
-    #for i in reversed(states):
-    #    for j in formatedStates:
-            #if(i == j[0] and len(j[2]) != 0):
-                #print("<<", "(", "|".join(j[0]), ") =",
-                #     "(", "|".join(j[2]), ")", j[1], ">>")
-    #simplificar(inputData)
+	logger(inputData)
+	
+
+def logger(inputData):
 	for i in reversed(states):
 		for j in formatedStates:
 			if(i == j[0] and len(j[2]) != 0):
-				#print("<<", "(", "|".join(j[0]), ") =",
-                     #"(", "|".join(j[2]), ")", j[1], ">>")
 				lista = []
 				aux = "|".join(j[0])
 				lista.append(aux)
@@ -64,25 +57,11 @@ def main():
 	for x in log:
 		print(x)
 
-	#substituir(equacoes[1], equacoes[6])
-	#arden(equacoes[6])
-	#for i in equacoes:
-		#printEquacao(i)
-		##print(equacaoReferenciada(i))
-
-
-        # print(i[0] +" = "+ i[1])
-
-    #algebraicRemovalMethod(inputData)
-    # print(regexOutput)
 
 def simplificar():
 
 		for i in equacoes:
-			#print("Antes -------")
-			#print(i[0]+"="+i[1])
 			for j in estados:
-				#if(len(re.findall("<["+j+"]*>",i[1])) > 1):
 				aux1 = []
 				aux2 = []
 				for x in i[1].split("+"):
@@ -99,23 +78,18 @@ def simplificar():
 						i[1] = '+'.join(aux2)+'+'
 					i[1] = i[1]+'<'+j+'>('+'&'.join(aux1)+')'
 					log.append('Obtemos ' + printEquacao(i))
-			#print("Depois -----")
-			#print(i[0]+"="+i[1])
-			#print("------------")
 
 def printEquacao(equacao):
 	return '<'+equacao[0]+'>'+'='+equacao[1].replace('&', '+')
 
 def arden(equacao):
 	simplificar()
-	#print(equacao[0]+'='+equacao[1])
 	aux = ''
 	aux1 = ''
 	aux2 = []
 	for x in equacao[1].split('+'):
 		aux = x.replace("<"+equacao[0]+">", '')
 		y = x.replace(aux, '')
-		#print(aux)
 		if('<'+equacao[0]+'>' == y):
 			aux1 = aux
 		else:
@@ -136,10 +110,7 @@ def arden(equacao):
 		log.append('Obtemos '+ printEquacao(equacao))
 
 def funcao(equacao, pai):
-	#vetor.append(equacao[0])
-	#print(vetor)
 	pai.append(equacao[0])
-	#print(pai)
 	for i in equacaoReferenciada(equacao):
 		if(i[0] not in pai):
 			funcao(i, pai)
@@ -217,7 +188,6 @@ def getAllTransitionsWithAListOfResults(listOfResults, inputData):
             if(x['to'] in listOfResults and x['letter'] == y):
                 aux.append(x['from'])
         response.append(aux)
-        #print("[", listOfResults, y, "]", " >>",  aux)
         formatedStates.append([listOfResults, y, aux])
 
     return response
