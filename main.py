@@ -45,19 +45,21 @@ def logger(inputData):
 			if(j == inputData['initial']):
 				i[1] = i[1]+'+$'
 				break
-	log.append('Apos aplicar o algoritmo, obtivemos as seguintes equacoes')
-	log.append('---------------------------------------------------------')
-	for i in equacoes:
+	log.append('Não ocorreu mais nenhum estado novo\n')
+	log.append('Juntando as esquações equivalentes chegamos em:')
+	log.append('=========================================================')
+	for i in sorted(equacoes,key=sortEquation,reverse=True):
 		log.append(printEquacao(i))
-	log.append('---------------------------------------------------------')
+	log.append('=========================================================\n')
 	pai = []
 	recursiveSubstitution(i, pai)
-	log.append('Logo, a ER para este AFD fica:')
+	log.append('Logo como não possuem mais vaiaveis a serem substituidas.\nNossa espressao regular para este AFD é equivalente à:')
 	log.append(i[1].replace('&', '+'))
 	for x in log:
 		print(x)
 
-
+def sortEquation(equation):
+	return len(equation[0])
 def simplificar():
 
 		for i in equacoes:
@@ -77,7 +79,7 @@ def simplificar():
 					if(len(aux2) > 0):
 						i[1] = '+'.join(aux2)+'+'
 					i[1] = i[1]+'<'+j+'>('+'&'.join(aux1)+')'
-					log.append('Obtemos ' + printEquacao(i))
+					log.append('	Obtemos: ' + printEquacao(i))
 
 def printEquacao(equacao):
 	return '<'+equacao[0]+'>'+'='+equacao[1].replace('&', '+')
@@ -96,7 +98,7 @@ def arden(equacao):
 		else:
 			aux2.append(x)
 	if(aux1 != ''):
-		log.append('Aplicando Arden a equacao '+ printEquacao(equacao))
+		log.append('	Aplicando Arden a equacao '+ printEquacao(equacao))
 		if ( len(aux1) == 1 ) or (aux1.startswith('(') and aux1.endswith(')')):
 			aux1 = aux1+'*'
 		else:
@@ -108,7 +110,7 @@ def arden(equacao):
 			else:
 				saida = saida + x + aux1 + '+'
 		equacao[1] = saida[:-1]
-		log.append('Obtemos '+ printEquacao(equacao))
+		log.append('	Obtemos: '+ printEquacao(equacao))
 
 def recursiveSubstitution(equacao, pai):
 	pai.append(equacao[0])
@@ -132,9 +134,9 @@ def substituir(equacao2, equacao1):
 			listaSemEquacao2.append(x)
 	saida = ''
 	if(len(comEquacao2) != 0):
-		log.append('Substituindo <' + equacao2[0] + '> em <' + equacao1[0]+'>')
-		log.append(printEquacao(equacao2))
-		log.append(printEquacao(equacao1))
+		log.append('Substituindo <' + equacao2[0] + '> em <' + equacao1[0]+'>:')
+		log.append("	"+printEquacao(equacao2))
+		log.append("	"+printEquacao(equacao1))
 		for x in equacao2[1].split('+'):
 			if x == '$':
 				saida = saida + comEquacao2 + '+'
@@ -143,7 +145,7 @@ def substituir(equacao2, equacao1):
 		for i in listaSemEquacao2:
 			saida = saida + i+'+'
 		equacao1[1] = saida[:-1]
-		log.append(printEquacao(equacao1))
+		log.append("	"+printEquacao(equacao1))
 
 
 
@@ -162,14 +164,26 @@ def equacaoReferenciada(equacao):
 
 
 def recursiveNewStateChecker(inputData, state):
-    if(state not in states and len(state) != 0):
-        states.append(state)
-        response = getAllTransitionsWithAListOfResults(
-            state, inputData)
-        for x in response:
-            recursiveNewStateChecker(inputData, x)
+	if(state not in states and len(state) != 0):
+		states.append(state)
+		response = getAllTransitionsWithAListOfResults(state, inputData)
+		# print(">>",state,response,(inputData['accepting']))
+		aux =""
+		if(len(states)==1):
+			aux+=("Começando pelo estado final <"+"|".join(state)+"> :\n")
+		else:
+			aux+=("Um novo estado apareceu,entao vamos mapear <"+"|".join(states[-1])+"> :\n")
 
-    return
+		for i in range(0,len(inputData['alphabet'])):
+			aux+="	g(<"+"|".join(state)+">,"+inputData['alphabet'][i]+") = "
+			if(len(response[i])==0):
+				aux+="$\n"
+			else:
+				aux+="<"+"|".join(response[i])+">\n"
+		log.append(aux)
+		for x in response:
+			recursiveNewStateChecker(inputData, x)
+		return
 
 
 def readInput(path):
