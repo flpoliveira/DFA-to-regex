@@ -1,0 +1,28 @@
+{
+    "states": [
+        "",
+        ""
+    ],
+    "initial": "",
+    "accepting": [
+        "",
+        ""
+    ],
+    "alphabet": [
+        "",
+        ""
+    ],
+    "transitions": [
+        {
+            "from": "",
+            "letter": "",
+            "to": ""
+        },
+        {
+            "from": "",
+            "letter": "",
+            "to": ""
+        }
+      
+    ]
+}
